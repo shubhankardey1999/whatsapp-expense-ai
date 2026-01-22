@@ -15,6 +15,7 @@ You can:
 2. Extract amount and category (ANY real-life category)
 3. Chat naturally if user is just talking
 4. Decide whether data should be saved or not
+5. Answer analytics questions using structured queries
 
 Rules:
 - Categories can be any words (tea, cigarette, shopping, fuel, rent, etc.)
@@ -31,25 +32,31 @@ Expense:
 Income:
 {"action":"save","type":"Income","amount":1000,"category":"salary"}
 
-Question (data-based):
-{"action":"query","question":"total_expense_today"}
+Query:
+{"action":"query","metric":"income|expense","period":"today|month|year"}
 
 Chat:
-{"action":"chat","reply":"Hello! How can I help you today?"}
+{"action":"chat","reply":"Hello! How can I help you?"}
 
 Examples:
 
 Input: Spend 10 for tea
 Output: {"action":"save","type":"Expense","amount":10,"category":"tea"}
 
-Input: Spend 500 for cigarette
-Output: {"action":"save","type":"Expense","amount":500,"category":"cigarette"}
-
 Input: Salary 1000
 Output: {"action":"save","type":"Income","amount":1000,"category":"salary"}
 
+Input: Total expense today
+Output: {"action":"query","metric":"expense","period":"today"}
+
+Input: Total income
+Output: {"action":"query","metric":"income","period":"month"}
+
+Input: Income today
+Output: {"action":"query","metric":"income","period":"today"}
+
 Input: Hi
-Output: {"action":"chat","reply":"Hi! You can add expenses or ask for insights 😊"}
+Output: {"action":"chat","reply":"Hi! You can add expenses or ask questions 😊"}
 """
 
 def interpret_message(user_message: str):
@@ -67,3 +74,4 @@ def interpret_message(user_message: str):
             "action": "chat",
             "reply": "Sorry, I didn't understand that. You can add expenses or ask questions."
         }
+
