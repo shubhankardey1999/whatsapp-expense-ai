@@ -19,10 +19,24 @@ def whatsapp_webhook():
         reply = f"✅ {ai['type']} added: ₹{ai['amount']} ({ai['category']})"
 
     elif ai["action"] == "query":
-        if ai["question"] == "total_expense_today":
-            reply = total_expense_today()
-        else:
-            reply = total_expense_month()
+    metric = ai.get("metric")
+    period = ai.get("period")
+
+    if metric == "expense" and period == "today":
+        reply = total_expense_today()
+
+    elif metric == "expense" and period == "month":
+        reply = total_expense_month()
+
+    elif metric == "income" and period == "today":
+        reply = total_income_today()
+
+    elif metric == "income" and period == "month":
+        reply = total_income_month()
+
+    else:
+        reply = "🤔 I can calculate income or expense for today or this month."
+
 
     else:
         reply = ai["reply"]
@@ -35,4 +49,5 @@ import os
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
