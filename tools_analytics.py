@@ -34,3 +34,15 @@ def total_expense_month():
     month = datetime.now().strftime("%B")
     total = df[(df["type"] == "Expense") & (df["month"] == month)]["amount"].sum()
     return f"📊 Total expense this month: ₹{int(total)}"
+
+def total_income_today():
+    df = load_df()
+    today = datetime.now().strftime("%Y-%m-%d")
+    total = df[(df["type"] == "Income") & (df["date"] == today)]["amount"].sum()
+    return f"💰 You earned ₹{int(total)} today"
+
+def total_income_month():
+    df = load_df()
+    month = datetime.now().strftime("%B")
+    total = df[(df["type"] == "Income") & (df["month"] == month)]["amount"].sum()
+    return f"📊 Total income this month: ₹{int(total)}"
