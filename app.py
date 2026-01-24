@@ -45,7 +45,7 @@ def whatsapp_webhook():
         else:
             reply = "🤔 I can calculate income or expense for today or this month."
     elif ai["action"] == "report":
-    report_url = os.getenv("POWERBI_REPORT_URL")
+        report_url = os.getenv("POWERBI_REPORT_URL")
 
         if report_url:
             reply = f"📊 Here is your Power BI report:\n{report_url}"
@@ -64,5 +64,6 @@ def whatsapp_webhook():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
