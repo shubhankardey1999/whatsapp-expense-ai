@@ -22,6 +22,7 @@ Rules:
 - If user mentions spending → expense
 - If user mentions earning/salary → income
 - If user is chatting → reply politely
+- If user asks for dashboard / report / Power BI → return report action
 - Output STRICT JSON only
 
 JSON formats:
@@ -34,6 +35,9 @@ Income:
 
 Query:
 {"action":"query","metric":"income|expense","period":"today|month|year"}
+
+Report:
+{"action":"report","platform":"powerbi"}
 
 Chat:
 {"action":"chat","reply":"Hello! How can I help you?"}
@@ -48,6 +52,12 @@ Output: {"action":"save","type":"Income","amount":1000,"category":"salary"}
 
 Input: Total expense today
 Output: {"action":"query","metric":"expense","period":"today"}
+
+Input: Show me the report
+Output: {"action":"report","platform":"powerbi"}
+
+Input: Share dashboard link
+Output: {"action":"report","platform":"powerbi"}
 
 Input: Total income
 Output: {"action":"query","metric":"income","period":"month"}
@@ -74,4 +84,5 @@ def interpret_message(user_message: str):
             "action": "chat",
             "reply": "Sorry, I didn't understand that. You can add expenses or ask questions."
         }
+
 
