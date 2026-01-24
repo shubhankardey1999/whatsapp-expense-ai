@@ -47,10 +47,10 @@ def whatsapp_webhook():
     elif ai["action"] == "report":
     report_url = os.getenv("POWERBI_REPORT_URL")
 
-    if report_url:
-        reply = f"📊 Here is your Power BI report:\n{report_url}"
-    else:
-        reply = "⚠️ Power BI report link is not configured."
+        if report_url:
+            reply = f"📊 Here is your Power BI report:\n{report_url}"
+        else:
+            reply = "⚠️ Power BI report link is not configured."
 
 
     # 3️⃣ NORMAL CHAT
@@ -64,4 +64,5 @@ def whatsapp_webhook():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
